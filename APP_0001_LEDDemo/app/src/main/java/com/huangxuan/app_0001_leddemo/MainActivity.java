@@ -4,13 +4,115 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
+
+    private boolean led_status = false;
+    private Button button = null;
+    private CheckBox checkBoxLed1 = null;
+    private CheckBox checkBoxLed2 = null;
+    private CheckBox checkBoxLed3 = null;
+    private CheckBox checkBoxLed4 = null;
+
+    //2、实现自己的监听器
+    class MyButtonListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            led_status = !led_status;
+            if(led_status){
+                button.setText("ALL OFF");
+                checkBoxLed1.setChecked(true);
+                checkBoxLed2.setChecked(true);
+                checkBoxLed3.setChecked(true);
+                checkBoxLed4.setChecked(true);
+                Toast.makeText(getApplicationContext(), "LED ALL on", Toast.LENGTH_SHORT).show();
+            }else{
+                button.setText("ALL_ON");
+                checkBoxLed1.setChecked(false);
+                checkBoxLed2.setChecked(false);
+                checkBoxLed3.setChecked(false);
+                checkBoxLed4.setChecked(false);
+                Toast.makeText(getApplicationContext(), "LED ALL off", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void onCheckboxClicked(View view){
+        //is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        //check which checkbox was clicked
+        switch (view.getId()){
+            case R.id.LED1:
+                if(checked){
+                    Toast.makeText(getApplicationContext(), "LED1 on", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "LED1 off", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.LED2:
+                if(checked){
+                    Toast.makeText(getApplicationContext(), "LED2 on", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "LED2 off", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.LED3:
+                if(checked){
+                    Toast.makeText(getApplicationContext(), "LED3 on", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "LED3 off", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.LED4:
+                if(checked){
+                    Toast.makeText(getApplicationContext(), "LED4 on", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "LED4 off", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //通过id获得Button的实例化对象
+        button = (Button) findViewById(R.id.BUTTON);
+
+        //通过id获得CheckBox的实例化对象
+        checkBoxLed1 = (CheckBox) findViewById(R.id.LED1);
+        checkBoxLed2 = (CheckBox) findViewById(R.id.LED2);
+        checkBoxLed3 = (CheckBox) findViewById(R.id.LED3);
+        checkBoxLed4 = (CheckBox) findViewById(R.id.LED4);
+
+        //2、实例化
+        button.setOnClickListener(new MyButtonListener());
+
+
+/*
+        //1、匿名类
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                led_status = !led_status;
+                if(led_status){
+                    button.setText("ALL OFF");
+
+                }else{
+                    button.setText("ALL_ON");
+                }
+            }
+        });
+        */
     }
 
     @Override
