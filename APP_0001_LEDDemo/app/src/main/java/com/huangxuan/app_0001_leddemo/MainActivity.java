@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
+import com.huangxuan.hardlibrary.*;
 
 public class MainActivity extends Activity {
 
@@ -22,6 +23,9 @@ public class MainActivity extends Activity {
     class MyButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+
+            HardControl hardControl = new HardControl();
+
             led_status = !led_status;
             if(led_status){
                 button.setText("ALL OFF");
